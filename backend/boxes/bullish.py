@@ -36,21 +36,36 @@ def create_boxes(data):
         prev_day_high = round(float(prev_day['high']), 2)
         prev_day_low = round(float(prev_day['low']), 2)
         current_day_low = round(float(current_day['low']), 2)
+        current_day_high = round(float(current_day['high']), 2)
         current_day_start = datetime.strptime(current_day['datetime'], '%Y-%m-%d')
         next_day_end = current_day_start + timedelta(days=1)
 
         box_height = round(calculate_box_height(prev_day_high, prev_day_low), 2)
 
-        for level in range(1, 4):  # Create 3 stacked boxes
-            base_height = round(current_day_low + (level - 1) * box_height, 2)  # Stack boxes relative to current day's low
+        level = 1
+        base_height = current_day_low
+        while True:
             box = Box(
                 start_time=current_day_start,
                 end_time=next_day_end,
                 height=box_height,
                 level=level,
-                base_height=base_height
+                base_height=round(base_height, 2)
             )
             boxes.append(box)
+
+            # Check if another set of boxes is needed
+            if current_day_high <= box.top_price:
+                break
+
+            # Move to the next level
+            level += 1
+            if level > 3:  # Reset to level 1 for a new set of boxes
+                level = 1
+                base_height = box.top_price
+            else:
+                base_height += box_height
+
     return boxes
 
 def fetch_data_and_create_boxes(file_path):
