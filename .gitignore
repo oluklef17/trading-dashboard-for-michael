@@ -1,0 +1,56 @@
+# Virtual Environments
+venv/
+env/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.swp
+db.sqlite3
+*.log
+*.pot
+*.pyc
+instance/
+.env
+.env.local
+.env.development
+.env.production
+
+# Django-specific
+*.sqlite3
+*.pyc
+/media/
+/staticfiles/
+*.bak
+*.sass-cache
+
+# Node.js / React
+node_modules/
+npm-debug.log
+yarn-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Build / Output
+build/
+dist/
+public/
+.DS_Store
+
+# IDE / Editor Specific
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# Logs & Temp files
+*.log
+debug.log
+coverage/
+*.pid
+*.seed
+*.state
+*.orig
